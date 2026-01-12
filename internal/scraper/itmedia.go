@@ -1,6 +1,10 @@
 package scraper
 
-import "context"
+import (
+	"context"
+
+	"go-news-aggregator/internal/model"
+)
 
 type ITmediaScraper struct{}
 
