@@ -9,6 +9,7 @@ import (
 	"go-news-aggregator/internal/model"
 
 	"github.com/PuerkitoBio/goquery"
+	"golang.org/x/net/html/charset"
 )
 
 type ITmediaScraper struct{}
@@ -33,10 +34,11 @@ func (i *ITmediaScraper) Fetch(ctx context.Context) ([]model.RawItem, error) {
 		return nil, fmt.Errorf("itmedia: status code error: %d %s", res.StatusCode, res.Status)
 	}
 
-	doc, err := goquery.NewDocumentFromReader(res.Body)
+	r, err := charset.NewReader(res.Body, res.Header.Get("Content-Type"))
 	if err != nil {
 		return nil, err
 	}
+	doc, err := goquery.NewDocumentFromReader(r)
 
 	var items []model.RawItem
 	doc.Find(".colBoxTitle").Each(func(_ int, s *goquery.Selection) {
