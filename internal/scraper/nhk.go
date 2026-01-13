@@ -55,7 +55,7 @@ func (n *NHKScraper) Fetch(ctx context.Context) ([]model.RawItem, error) {
 
 		items = append(items, model.RawItem{
 			Title:       strings.TrimSpace(title),
-			URL:         "https://www3.nhk.or.jp" + link,
+			URL:         url,
 			PublishedAt: nil,
 			Source:      "NHK",
 		})
