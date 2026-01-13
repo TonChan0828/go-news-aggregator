@@ -24,7 +24,7 @@ func main() {
 
 	// scraper構築
 	scrapers := []scraper.Scraper{
-		&scraper.NHKScraper{},
+		// &scraper.NHKScraper{},
 		&scraper.ITmediaScraper{},
 	}
 

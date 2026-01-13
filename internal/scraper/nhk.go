@@ -18,7 +18,7 @@ func (n *NHKScraper) Name() string {
 }
 
 func (n *NHKScraper) Fetch(ctx context.Context) ([]model.RawItem, error) {
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, "https://www3.nhk.or.jp/news/", nil)
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, "https://news.web.nhk/newsweb", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -50,7 +50,7 @@ func (n *NHKScraper) Fetch(ctx context.Context) ([]model.RawItem, error) {
 
 		url := link
 		if !strings.HasPrefix(link, "http") {
-			url = "https://www3.nhk.or.jp/news/" + link
+			url = "https://news.web.nhk/newsweb" + link
 		}
 
 		items = append(items, model.RawItem{
