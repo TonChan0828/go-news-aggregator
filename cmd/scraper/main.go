@@ -26,6 +26,7 @@ func main() {
 	scrapers := []scraper.Scraper{
 		// &scraper.NHKScraper{},
 		&scraper.ITmediaScraper{},
+		&scraper.GIGAZINEScraper{},
 	}
 
 	// 並行実行
