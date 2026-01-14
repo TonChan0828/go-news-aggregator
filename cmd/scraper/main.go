@@ -24,7 +24,7 @@ func main() {
 
 	// scraper構築
 	scrapers := []scraper.Scraper{
-		// &scraper.NHKScraper{},
+		&scraper.NHKScraper{},
 		&scraper.ITmediaScraper{},
 		&scraper.GIGAZINEScraper{},
 	}
@@ -53,7 +53,7 @@ func main() {
 
 	fmt.Println("\n=== 最新記事 ===")
 	for i, item := range sorted {
-		if i >= 10 {
+		if i >= 100 {
 			break
 		}
 

@@ -18,7 +18,7 @@ func (n *NHKScraper) Name() string {
 }
 
 func (n *NHKScraper) Fetch(ctx context.Context) ([]model.RawItem, error) {
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, "https://news.web.nhk/newsweb", nil)
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, "https://news.web.nhk/newsweb/pl/news-nwa-latest-nationwide", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -39,10 +39,10 @@ func (n *NHKScraper) Fetch(ctx context.Context) ([]model.RawItem, error) {
 	}
 
 	var items []model.RawItem
-	doc.Find("article").Each(func(_ int, s *goquery.Selection) {
+	doc.Find(".vmdvll5 > li").Each(func(_ int, s *goquery.Selection) {
 		a := s.Find("a").First()
 		title := strings.TrimSpace(a.Text())
-		link, ok := s.Find("a").Attr("href")
+		link, ok := a.Attr("href")
 
 		if title == "" || !ok || link == "" {
 			return
@@ -50,7 +50,7 @@ func (n *NHKScraper) Fetch(ctx context.Context) ([]model.RawItem, error) {
 
 		url := link
 		if !strings.HasPrefix(link, "http") {
-			url = "https://news.web.nhk/newsweb" + link
+			url = "https://news.web.nhk" + link
 		}
 
 		items = append(items, model.RawItem{
